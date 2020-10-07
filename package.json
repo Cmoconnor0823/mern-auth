@@ -1,0 +1,11 @@
+{
+  "name": "mern-auth",
+  "version": "1.0.0",
+  "description": "A boiler plat for an authorized react site",
+  "main": "index.js",
+  "scripts": {
+    "test": "test.js"
+  },
+  "author": "Caitlin O'Connor",
+  "license": "ISC"
+}
