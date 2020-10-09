@@ -10,6 +10,16 @@ const UserSchema = new Schema({
     email: {
         type: String,
         required: true
+    },
+    date: {
+        type: Date,
+        required: true
+    },
+    password: {
+        type:String,
+        default: Date.now,
+        required: true
     }
-    
-})
+});
+
+module.exports = User = mongoose.model("users", UserSchema);
