@@ -48,3 +48,6 @@ router.post("/register", (req, res) => {
     }
   });
 });
+
+// Don't forget to export
+module.exports = router;

@@ -2,7 +2,7 @@ require("dotenv").config();
 
 
 const localmd = process.env.MONGO;
-const cloudmd = URI;
+const cloudmd = process.env.URI;
 console.log(localmd, "this should pring the local db connection");
  
 module.exports = {
