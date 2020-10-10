@@ -19,7 +19,7 @@ router.post("/register", (req, res) => {
 
   // check validation
   if (!isValid) {
-    return res.status(400).json(errors);
+    return res.status(400).json(error);
   }
 
   User.findOne({ email: req.body.email }).then((user) => {
@@ -34,7 +34,7 @@ router.post("/register", (req, res) => {
 
       // Hash password before storing in db
       bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hase(newUser.password, salt, (err, hash) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
           newUser
             .save()
