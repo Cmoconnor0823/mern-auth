@@ -3,11 +3,8 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-require("dotenv").config();
 
-const localmd = process.env.MONGO;
-const cloudmd = URI;
-console.log(localmd, "this should pring the local db connection");
+
 
 // load input validation
 const validateRegisterInput = require("../../validation/register");
