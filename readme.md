@@ -1,6 +1,6 @@
 # Mern Auth
 
-Mern Auth is a demo project to show how to create a basic app with a log in including some basic security features
+Mern Auth is a demo project to show how to create a basic app with a log in including some basic security features. Routes are tested using Postman, and state is handled using Redux
 
 This app will allow users to:
 
