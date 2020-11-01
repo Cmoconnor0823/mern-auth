@@ -1,6 +1,14 @@
-import e from "express";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+
+// This component provides the user with a styled
+// form in order to log into the site. Initially 
+// the information is only logged to the terminal
+// until Redux is implemented.
+
+// Note that this.state is a object set to empty
+// strings at the beginning, this will be overwritten
+// with the user's information or errors that occur
 
 class Login extends Component {
   constructor() {

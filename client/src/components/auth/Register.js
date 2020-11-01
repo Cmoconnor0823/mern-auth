@@ -1,6 +1,19 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+
+
+// This component provides the user with a styled
+// form in order to register an account to the site.
+// Initially the information is only logged to the
+// terminal until Redux is implemented.
+
+// Note that this.state is a object set to empty
+// strings at the beginning, this will be overwritten
+// with the user's information or errors that occur
+
+// Link component is using react-router-dom
+
 class Register extends Component {
   constructor() {
     super();
@@ -34,7 +47,7 @@ class Register extends Component {
 
     return (
       <div className="container">
-        <div className="row">
+        <div style={{ marginTop: ".5rem" }}  className="row">
           <div className="col s8 offset-s2">
             <Link to="/" className="btn-flat waves-effect">
               <i className="material-icons left">keyboard_backspace</i> Back to
@@ -45,7 +58,7 @@ class Register extends Component {
                 <b>Register</b>below
               </h3>
               <p className="grey-text text-darken-2">
-                Already have an account? Click here to log in{" "}
+                Already have an account? Click here to{" "}
                 <Link to="/login">Log in</Link>
               </p>
             </div>
