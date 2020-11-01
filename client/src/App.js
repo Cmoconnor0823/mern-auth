@@ -4,6 +4,10 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 //as the styling is done through materialize
 import './App.css';
 
+// the following 2 imports are required to use redux
+import { Provider } from "react-redux";
+import store from "./store";
+
 // The following components are built in order
 import Nav from "./components/layout/Navbar"
 import Landing from "./components/layout/Landing";
@@ -15,6 +19,7 @@ import Login from "./components/auth/Login";
 class App extends Component {
   render(){
   return (
+    <Provider store={store}>
     <Router>
     <div className="App">
         <Nav />
@@ -23,6 +28,7 @@ class App extends Component {
         <Route exact path="/login" component={Login} />
     </div>
     </Router>
+    </Provider>
   );
   }
 }
