@@ -13,7 +13,7 @@ class Navbar extends Component {
                             fontFamily: "sans-serif"
                         }}
                         className="col s5 brand-logo center white-text">
-                            <i className="material-icons">Navbar test</i>
+                            <i className="material-icons">code</i>
                             MERN
                         </Link>
                     </div>
