@@ -27,7 +27,7 @@ router.post("/register", (req, res) => {
   } 
  console.log(req.body.email)
   User.findOne({ email: req.body.email }).then((user) => {
-    console.log(user,"user in db")
+    console.log(user,"user.js in db")
     if (user) {
       return res.status(400).json({ emailindb: "Email already in Database" });
     } else {

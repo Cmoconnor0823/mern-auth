@@ -40,7 +40,10 @@ class Login extends Component {
       this.props.history.push("/dashboard");
     }
   }
-
+// In a future update this will be updated to use
+// the recommended method static getDerivedStateFromProps
+// the code commented out below is an example but
+// it does not currently work as intended
     componentWillReceiveProps(nextProps) {
       if (nextProps.auth.isAuthenticated) {
         this.props.history.push("/dashboard");
@@ -90,8 +93,8 @@ class Login extends Component {
         <div style={{ marginTop: "4rem" }} className="row">
           <div className="col s8 offset-s2">
             <Link to="/" className="btn-flat waves-effect">
-              <i className="material-icons left">keyboard_backspace</i> Back to
-              Home
+              {/* <i className="material-icons left">keyboard_backspace</i>  */}
+            	&larr;  Back to Home
             </Link>
             <div className="col s12 " style={{ paddingLeft: "12px" }}>
               <h3>
@@ -161,7 +164,7 @@ class Login extends Component {
 }
 
 
-//since we can't define our property types above in
+// Since we can't define our property types above in
 // the constructor, we will define them here
 
 
@@ -178,6 +181,13 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
+// This export uses connect() from react-redux to
+// connect our components to our redux store
+// provided from the provider component in app
+
+// mapStateToProps allows us to recieve our state from
+// Redux and map it to props (how we access state in a component)
+// withRouter here is used to redirect within an action
 
 
 export default connect(

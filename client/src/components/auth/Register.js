@@ -76,8 +76,8 @@ class Register extends Component {
         <div style={{ marginTop: ".5rem" }} className="row">
           <div className="col s8 offset-s2">
             <Link to="/" className="btn-flat waves-effect">
-              <i className="material-icons left">keyboard_backspace</i> Back to
-              home
+              {/* <i className="material-icons left">keyboard_backspace</i>  */}
+            	&larr;  Back to Home
             </Link>
             <div className="col s12" style={{ paddingLeft: "12px" }}>
               <h3>
@@ -169,7 +169,7 @@ class Register extends Component {
     );
   }
 }
-//since we can't define our property types above in
+// Since we can't define our property types above in
 // the constructor, we will define them here
 
 Register.propTypes = {

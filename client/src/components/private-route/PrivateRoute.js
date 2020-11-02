@@ -21,6 +21,10 @@ const PrivateRoute = ({ component: Component, auth, ...rest
 />
 );
 
+
+// Since we can't define our property types above in
+// the constructor, we will define them here
+
 PrivateRoute.propTypes = ({
     auth: PropTypes.object.isRequired
 })
@@ -28,5 +32,14 @@ PrivateRoute.propTypes = ({
 const mapStateToProps = state => ({
     auth: state.auth
 });
+
+
+// This export uses connect() from react-redux to
+// connect our components to our redux store
+// provided from the provider component in app
+
+// mapStateToProps allows us to recieve our state from
+// Redux and map it to props (how we access state in a component)
+// withRouter here is used to redirect within an action
 
 export default connect(mapStateToProps)(PrivateRoute);

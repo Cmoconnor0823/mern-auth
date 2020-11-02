@@ -2,6 +2,9 @@ import React,{ Component } from "react";
 
 import { Link } from "react-router-dom";
 
+// The Landing component will render 2 buttons to take the user to 
+// either a Register component or a Login component.
+// The routing to either component is done with the use of react-router-dom
 class Landing extends Component {
   render() {
     return (
@@ -14,7 +17,7 @@ class Landing extends Component {
             </h3>
             <p
               style={{ fontFamily: "monospace" }}
-              className="flow-text white-text text-darken-1"
+              className="flow-text grey-text text-darken-1"
             >
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id
               ultrices metus, eu fringilla enim. Cras ac risus vitae diam
