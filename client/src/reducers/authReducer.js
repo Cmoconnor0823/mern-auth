@@ -15,6 +15,8 @@ const initialState = {
     loading: false
 };
 
+// export our reducer for auth with a loading case and
+// a case to set our user's authentication once loaded
 export default function(state=initialState, action){
     switch (action.type) {
         case SET_CURRENT_USER:
