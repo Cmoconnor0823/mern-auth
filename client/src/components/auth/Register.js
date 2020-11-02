@@ -1,9 +1,18 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 
+// To ensure we recieve the expected data we will define
+// our property types below
 import PropTypes from "prop-types";
+
+// The below imports are used to connect the Register 
+// component with redux
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
+
+// classnames is one of the npm packages included
+// It is a simple utility for conditionally joining
+// classNames together
 import classnames from "classnames";
 
 // This component provides the user with a styled
@@ -158,7 +167,7 @@ class Register extends Component {
 //since we can't define our property types above in
 // the constructor, we will define them here
 Register.propTypes = {
-  registerUser: PropTypes.func.isRequired.isRequired,
+  registerUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
 };

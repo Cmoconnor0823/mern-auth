@@ -1,6 +1,20 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+// To ensure we recieve the expected data we will define
+// our property types below
+import PropTypes from "prop-types";
+
+// The below imports are used to connect the Register 
+// component with redux
+import { connect } from "react-redux";
+import { loginUser } from "../../actions/authActions";
+
+// classnames is one of the npm packages included
+// It is a simple utility for conditionally joining
+// classNames together
+import classnames from "classnames";
+
 // This component provides the user with a styled
 // form in order to log into the site. Initially 
 // the information is only logged to the terminal
@@ -20,6 +34,19 @@ class Login extends Component {
     };
   }
 
+  componentWillRecieveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      // send user to a priviate route page called dashboard when they login
+      this.props.history.push("/dashboard");
+    }
+
+    if(nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      });
+    }
+  }
+
   onChange = (event) => {
     this.setState({ [event.target.id]: event.target.value });
   };
@@ -32,7 +59,11 @@ class Login extends Component {
       password: this.state.password,
     };
 
-    console.log(userData, "userData Login.js");
+    //console.log(userData, "userData Login.js");
+
+    // since we handle the redirect above in the component we don't need
+    // this.props.history like we did for Register.js
+    this.props.loginUser(userData);
   };
 
   render() {
@@ -62,8 +93,15 @@ class Login extends Component {
                   error={errors.email}
                   id="email"
                   type="email"
+                  classname= {classnames("", {
+                    invalid: errors.email || errors.emailnotfound
+                  })}
                 />
                 <label htmlFor="email">email</label>
+                <span className="red-text">
+                  {errors.email}
+                  {errors.emailnotfound}
+                </span>
               </div>
 
               <div className="input-field col s12">
@@ -73,8 +111,15 @@ class Login extends Component {
                   error={errors.password}
                   id="password"
                   type="password"
+                  classname={classnames("",{
+                    invalid: errors.password || errors.passwordincorrect
+                  })}
                 />
                 <label htmlFor="password">Password</label>
+                <span className="red-text">
+                  {errors.password}
+                  {errors.passwordincorrect}
+                </span>
               </div>
 
               <div className="col s12" style={{ paddingLeft: "12px" }}>
@@ -100,4 +145,24 @@ class Login extends Component {
 }
 
 
-export default Login;
+//since we can't define our property types above in
+// the constructor, we will define them here
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+};
+
+// This will allow us to call this.props.auth or
+// this.props.errors within the Login component
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors,
+});
+
+
+
+export default connect(
+  mapStateToProps,
+  { loginUser }
+ ) (Login);
