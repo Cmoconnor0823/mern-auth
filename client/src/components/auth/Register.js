@@ -1,7 +1,10 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
-
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { registerUser } from "../../actions/authActions";
+import classnames from "classnames";
 
 // This component provides the user with a styled
 // form in order to register an account to the site.
@@ -25,6 +28,14 @@ class Register extends Component {
       errors: {},
     };
   }
+  componentWillRecieveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors,
+      });
+    }
+  }
+
   onChange = (event) => {
     this.setState({ [event.target.id]: event.target.value });
   };
@@ -39,15 +50,16 @@ class Register extends Component {
       password2: this.state.password2,
     };
 
-    console.log(newUser);
-  };
+    //console.log(newUser);
 
+    this.props.registerUser(newUser, this.props.history);
+  };
   render() {
     const errors = this.state.errors;
 
     return (
       <div className="container">
-        <div style={{ marginTop: ".5rem" }}  className="row">
+        <div style={{ marginTop: ".5rem" }} className="row">
           <div className="col s8 offset-s2">
             <Link to="/" className="btn-flat waves-effect">
               <i className="material-icons left">keyboard_backspace</i> Back to
@@ -70,8 +82,12 @@ class Register extends Component {
                   error={errors.name}
                   id="name"
                   type="text"
+                  className={classnames("", {
+                    invalid: errors.name,
+                  })}
                 />
                 <label htmlFor="name">Name</label>
+                <span className="red-text">{errors.name}</span>
               </div>
 
               <div className="input-field col s12">
@@ -81,8 +97,12 @@ class Register extends Component {
                   error={errors.email}
                   id="email"
                   type="email"
+                  className={classnames("", {
+                    invalid: errors.email,
+                  })}
                 />
                 <label htmlFor="email">email</label>
+                <span className="red-text">{errors.email}</span>
               </div>
 
               <div className="input-field col s12">
@@ -92,8 +112,12 @@ class Register extends Component {
                   error={errors.password}
                   id="password"
                   type="password"
+                  className={classnames("", {
+                    invalid: errors.password,
+                  })}
                 />
                 <label htmlFor="password">Password</label>
+                <span className="red-text">{errors.password}</span>
               </div>
 
               <div className="input-field col s12">
@@ -103,8 +127,12 @@ class Register extends Component {
                   error={errors.password2}
                   id="password2"
                   type="password"
+                  className={classnames("", {
+                    invalid: errors.password2,
+                  })}
                 />
                 <label htmlFor="password2">Confirm Password</label>
+                <span className="red-text">{errors.password2}</span>
               </div>
               <div className="col s12" style={{ paddingLeft: "12px" }}>
                 <button
@@ -127,5 +155,26 @@ class Register extends Component {
     );
   }
 }
+//since we can't define our property types above in
+// the constructor, we will define them here
+Register.propTypes = {
+  registerUser: PropTypes.func.isRequired.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+};
 
-export default Register;
+// This will allow us to call this.props.auth or
+// this.props.errors within the Register component
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors,
+});
+
+// This export uses connect() from react-redux to
+// connect our components to our redux store
+// provided from the provider component in app
+
+// mapStateToProps allows us to recieve our state from
+// Redux and map it to props (how we access state in a component)
+// withRouter here is used to redirect within an action
+export default connect(mapStateToProps, { registerUser })(withRouter(Register));
