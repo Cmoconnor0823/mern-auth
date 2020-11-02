@@ -6,6 +6,7 @@ const Validator = require("validator");
 
 module.exports = function validateRegisterInput(data) {
   let errors = {};
+ 
 
   //First check to see if there are any empty fields
   //If data is empty for the provided value, convert the
@@ -44,7 +45,7 @@ module.exports = function validateRegisterInput(data) {
   }
 
   if (!Validator.equals(data.password, data.password2)) {
-    errors.password2 = "The passwords endtered do not match";
+    errors.password2 = "The passwords entered do not match";
   }
 
   return {

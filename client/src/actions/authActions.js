@@ -3,19 +3,19 @@ import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 
 import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from "./types";
-import { set } from "mongoose";
+
 
 // Begin axios route to register user in our database
 export const registerUser = (userData, history) => (dispatch) => {
   axios
     .post("/api/users/register", userData)
     // if a user is registered, redirect user to log in
-    .then((res = history.pushState("/login")))
+    .then(res => history.push("/login"))
     .catch((err) =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data,
-      })
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data,
+    })
     );
 };
 
@@ -31,7 +31,7 @@ export const loginUser = (userData) => (dispatch) => {
       //now we set the token to the Auth Header
       setAuthToken(token);
       // Now we need to decode the token to get user data
-      const decode = jwt_decode(token);
+      const decoded = jwt_decode(token);
       // Set current user
       dispatch(setCurrentUser(decoded));
     })

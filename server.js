@@ -14,16 +14,16 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+
+// Connect to Database
+mongoose.connect(process.env.MONGO || URI,{ useNewUrlParser: true,  useUnifiedTopology: true })
+.then(() => console.log("MongoDB successfully connected"))
+.catch(err => console.log(err));
+
 //passport middleware
 app.use(passport.initialize());
 
 require("./config/passport")(passport);
-
-// Connect to Database
-mongoose.connect(process.env.MONGO || URI,{ useNewUrlParser: true,  useUnifiedTopology: true })
-    .then(() => console.log("MongoDB successfully connected"))
-    .catch(err => console.log(err));
-
 
 //Routes
 app.use("/api/users", users);

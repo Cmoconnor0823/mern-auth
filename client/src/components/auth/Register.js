@@ -27,8 +27,8 @@ import classnames from "classnames";
 // Link component is using react-router-dom
 
 class Register extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       name: "",
       email: "",
@@ -37,12 +37,17 @@ class Register extends Component {
       errors: {},
     };
   }
-  componentWillRecieveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors,
-      });
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.errors !== state.errors) {
+      console.log(props.errors, "static Register")
+      return{
+        errors: props.errors
+      };
     }
+    return {
+      errors: ""
+    };
   }
 
   onChange = (event) => {
@@ -57,15 +62,15 @@ class Register extends Component {
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2,
+      
     };
 
-    //console.log(newUser);
+    console.log(newUser, "new user");
 
     this.props.registerUser(newUser, this.props.history);
   };
   render() {
-    const errors = this.state.errors;
-
+    const { errors } = this.state;
     return (
       <div className="container">
         <div style={{ marginTop: ".5rem" }} className="row">
@@ -107,11 +112,11 @@ class Register extends Component {
                   id="email"
                   type="email"
                   className={classnames("", {
-                    invalid: errors.email,
+                    invalid: errors.emailindb,
                   })}
                 />
                 <label htmlFor="email">email</label>
-                <span className="red-text">{errors.email}</span>
+                <span className="red-text">{errors.emailindb}</span>
               </div>
 
               <div className="input-field col s12">
@@ -166,6 +171,7 @@ class Register extends Component {
 }
 //since we can't define our property types above in
 // the constructor, we will define them here
+
 Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,

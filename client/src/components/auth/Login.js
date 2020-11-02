@@ -25,8 +25,8 @@ import classnames from "classnames";
 // with the user's information or errors that occur
 
 class Login extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: "",
       password: "",
@@ -34,18 +34,34 @@ class Login extends Component {
     };
   }
 
-  componentWillRecieveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
       // send user to a priviate route page called dashboard when they login
       this.props.history.push("/dashboard");
     }
+  }
 
+    componentWillReceiveProps(nextProps) {
+      if (nextProps.auth.isAuthenticated) {
+        this.props.history.push("/dashboard");
+      }
     if(nextProps.errors) {
       this.setState({
         errors: nextProps.errors
       });
     }
   }
+  // static getDerivedStateFromProps(props, state) {
+  //   if(props.auth.isAuthenticated){
+  //     this.props.history.push("/dashboard");
+  //   }
+  //   if (props.errors !== state.errors) {
+  //     return{
+  //       errors: props.errors
+  //     }
+  //   }
+  //   return props
+  // }
 
   onChange = (event) => {
     this.setState({ [event.target.id]: event.target.value });
@@ -59,7 +75,7 @@ class Login extends Component {
       password: this.state.password,
     };
 
-    //console.log(userData, "userData Login.js");
+    console.log(userData, "userData Login.js");
 
     // since we handle the redirect above in the component we don't need
     // this.props.history like we did for Register.js
@@ -67,7 +83,7 @@ class Login extends Component {
   };
 
   render() {
-    const errors = this.state.errors;
+    const {errors} = this.state;
 
     return (
       <div className="container">
@@ -93,7 +109,7 @@ class Login extends Component {
                   error={errors.email}
                   id="email"
                   type="email"
-                  classname= {classnames("", {
+                  className= {classnames("", {
                     invalid: errors.email || errors.emailnotfound
                   })}
                 />
@@ -111,7 +127,7 @@ class Login extends Component {
                   error={errors.password}
                   id="password"
                   type="password"
-                  classname={classnames("",{
+                  className={classnames("",{
                     invalid: errors.password || errors.passwordincorrect
                   })}
                 />
@@ -147,6 +163,8 @@ class Login extends Component {
 
 //since we can't define our property types above in
 // the constructor, we will define them here
+
+
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,

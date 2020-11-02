@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const keys = require("../../config/keys");
+const passport = require("passport");
 
 // load input validation
 const validateRegisterInput = require("../../validation/register");
@@ -14,32 +16,36 @@ const User = require("../../models/User");
 
 router.post("/register", (req, res) => {
   // First validate input from register user form
-
-  const { error, isValid } = validateRegisterInput(req.body);
-
+  console.log("testing proxy");
+  
+  const { errors, isValid } = validateRegisterInput(req.body);
+  
+  console.log(req.body.email, "errors in user.js")
   // check validation
   if (!isValid) {
-    return res.status(400).json(error);
-  }
-
+    return res.status(400).json(errors);
+  } 
+ console.log(req.body.email)
   User.findOne({ email: req.body.email }).then((user) => {
+    console.log(user,"user in db")
     if (user) {
-      return res.status(400).json({ email: "Email already in Database" });
+      return res.status(400).json({ emailindb: "Email already in Database" });
     } else {
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
       });
-
+      
       // Hash password before storing in db
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
+          newUser.password = hash;
           newUser
-            .save()
-            .then((user) => res.json(user))
-            .catch((err) => console.log(err));
+          .save()
+          .then((user) => res.json(user))
+          .catch((err) => console.log(err));
         });
       });
     }
@@ -56,7 +62,6 @@ router.post("/login", (req, res) => {
   // first validate form info
 
   const { errors, isValid } = validateLoginInput(req.body);
-
   if (!isValid) {
     return res.status(400).json(errors);
   }
