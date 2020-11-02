@@ -3,6 +3,10 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 
+
+// Below is a simple Dashboard to be displayed once
+// a user has logged in. The user name is passed in
+// thanks to mapStateToProps
 class Dashboard extends Component {
   onLogoutClick = (event) => {
     event.preventDefault();
@@ -40,6 +44,7 @@ class Dashboard extends Component {
   }
 }
 
+//Just like on the previous components we define our prop types
 Dashboard.propTypes = {
     logoutUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired
