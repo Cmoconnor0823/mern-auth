@@ -10,7 +10,7 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
 // load user model
-const User = require("../../models/User");
+const User = require("../../model/User");
 
 ///////////////// beginning of register route ///////////////
 
